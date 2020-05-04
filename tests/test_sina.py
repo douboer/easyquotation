@@ -16,6 +16,7 @@ class TestSina(unittest.TestCase):
         stock_name = self._sina.format_response_data(MOCK_DATA)["162411"][
             "name"
         ]
+        print('test_extract_stock..')
         self.assertEqual(stock_name, "华宝油气")
 
     def test_skip_empty_quotation_stock(self):
@@ -105,3 +106,4 @@ MOCK_EMPTY_STOCK_DATA = """var hq_str_sz160922="恒生中小,0.000,1.074,0.000,0
 var hq_str_sz160923="";
 var hq_str_sz160924="恒指LOF,0.000,1.095,0.000,0.000,0.000,1.034,1.077,0,0.000,42000,1.034,300,1.031,700,1.009,500,0.992,8000,0.990,400,1.077,900,1.134,9300,1.160,1000,1.196,0,0.000,2019-04-08,09:41:36,00";
 """
+

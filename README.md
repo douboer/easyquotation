@@ -4,7 +4,6 @@
 [![Travis](https://img.shields.io/travis/shidenggui/easyquotation.svg)](https://travis-ci.org/shidenggui/easyquotation)
 [![License](https://img.shields.io/github/license/shidenggui/easyquotation.svg)](https://github.com/shidenggui/easyquotation/blob/master/LICENSE)
 
-
 快速获取新浪/腾讯的全市场行情, 网络正常的情况下只需要 `200+ms`
 
 ### 前言
@@ -38,7 +37,7 @@
 ### requirements
 
 > Python 3.6+
- 
+
 > pip install -r requirements.txt
 
 ### 安装
@@ -76,7 +75,8 @@ quotation = easyquotation.use('sina') # 新浪 ['sina'] 腾讯 ['tencent', 'qq']
 #### 获取所有股票行情
 
 ```python
-quotation.market_snapshot(prefix=True) # prefix 参数指定返回的行情字典中的股票代码 key 是否带 sz/sh 前缀
+quotation.market_snapshot(prefix=True) # prefix 参数
+指定返回的行情字典中的股票代码 key 是否带 sz/sh 前缀
 ```
 
 **return**
@@ -107,7 +107,7 @@ quotation.market_snapshot(prefix=True) # prefix 参数指定返回的行情字�
   ......
 }
 ```
- 
+
 ##### 单只股票
 
 ```
@@ -338,7 +338,7 @@ quotation.etfindex(index_id="", min_volume=0, max_discount=None, min_discount=No
 ```
 
 
-##### 分数图
+##### 分时图
 
 
 *[腾讯分时图地址](http://data.gtimg.cn/flashdata/hushen/minute/sz000001.js)*
@@ -445,3 +445,4 @@ make init
 ```
 
 提交代码时通过所有 `hooks` 检查即可
+

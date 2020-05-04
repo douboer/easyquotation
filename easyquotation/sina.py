@@ -5,9 +5,8 @@ import time
 from . import basequotation
 
 
+"""新浪免费行情获取"""
 class Sina(basequotation.BaseQuotation):
-    """新浪免费行情获取"""
-
     max_num = 800
     grep_detail = re.compile(
         r"(\d+)=[^\s]([^\s,]+?)%s%s"
@@ -25,9 +24,14 @@ class Sina(basequotation.BaseQuotation):
     def stock_api(self) -> str:
         return f"http://hq.sinajs.cn/rn={int(time.time() * 1000)}&list="
 
+    #rep_data: ['var hq_str_sz000001="平安银行,14.020,14.020,13.930,14.320,13.880,13.920,13.930,81954043,1155968238.130,173700,13.9     20,137226,13.910,493500,13.900,208322,13.890,360776,13.880,489775,13.930,143400,13.940,242100,13.950,36620,13.960,28     300,13.970,2020-04-30,15:00:03,00";\n']
     def format_response_data(self, rep_data, prefix=False):
         stocks_detail = "".join(rep_data)
+
+        #re.sub(pattern, repl, string, count=0, flags=0)
+        #stocks_detail = re.sub(self.del_null_data_stock, '', stocks_detail)
         stocks_detail = self.del_null_data_stock.sub('', stocks_detail)
+        #print(stocks_detail)
         stocks_detail = stocks_detail.replace(' ', '')
         grep_str = self.grep_detail_with_prefix if prefix else self.grep_detail
         result = grep_str.finditer(stocks_detail)

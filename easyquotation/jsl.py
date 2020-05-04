@@ -394,6 +394,7 @@ class Jsl:
         """
         # 添加当前的ctime
         self.__qdii_url = self.__qdii_url.format(ctime=int(time.time()))
+        print(self.__qdii_url)
         # 请求数据
         rep = requests.get(self.__qdii_url)
         # 获取返回的json字符串
@@ -414,7 +415,7 @@ class Jsl:
 
     # pylint: disable=invalid-name
     def cb(self, min_volume=0):
-        """以字典形式返回QDII数据
+        """以字典形式返回可转账数据
         :param min_volume:最小交易量，单位万元
         """
         # 添加当前的ctime

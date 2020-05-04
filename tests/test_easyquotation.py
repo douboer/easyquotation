@@ -1,11 +1,13 @@
 # coding:utf8
 import unittest
-
 import easyquotation
 
+import warnings
 
 class TestEasyquotation(unittest.TestCase):
     def test_stock_code_with_prefix(self):
+        warnings.simplefilter("ignore", ResourceWarning)
+
         cases = ["sina", "qq"]
         for src in cases:
             q = easyquotation.use(src)
@@ -14,6 +16,7 @@ class TestEasyquotation(unittest.TestCase):
                 self.assertRegex(k, r"(sh|sz)\d{6}")
 
     def test_all(self):
+        warnings.simplefilter("ignore", ResourceWarning)
         cases = ["sina", "qq"]
         for src in cases:
             q = easyquotation.use(src)

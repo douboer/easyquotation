@@ -8,7 +8,6 @@ import requests
 
 from . import helpers
 
-
 class BaseQuotation(metaclass=abc.ABCMeta):
     """行情获取基类"""
 
@@ -25,6 +24,8 @@ class BaseQuotation(metaclass=abc.ABCMeta):
     def __init__(self):
         self._session = requests.session()
         stock_codes = self.load_stock_codes()
+
+        # CGC - stock_list获取属于业务，不应该放到初始化模块中
         self.stock_list = self.gen_stock_list(stock_codes)
 
     def gen_stock_list(self, stock_codes):
@@ -40,6 +41,7 @@ class BaseQuotation(metaclass=abc.ABCMeta):
                 stock_with_exchange_list[i : i + self.max_num]
             )
             stock_list.append(request_list)
+
         return stock_list
 
     def _gen_stock_prefix(self, stock_codes):
@@ -88,6 +90,8 @@ class BaseQuotation(metaclass=abc.ABCMeta):
         """
         return self.get_stock_data(self.stock_list, prefix=prefix)
 
+    # 传入stock_list，获取股票信息
+    # params is dict object
     def get_stocks_by_range(self, params):
         headers = {
             "Accept-Encoding": "gzip, deflate, sdch",
@@ -98,7 +102,12 @@ class BaseQuotation(metaclass=abc.ABCMeta):
             ),
         }
 
+        # CGD
+        # self.stock_api : http://hq.sinajs.cn/rn=1588425613925&list
+        # params/stock_list : sh603577,sh603578,sh603579
+        # r.text : var hq_str_sh603577="汇金通,13.880,12.880,13.200,14.170,12.200,13.190,13.200,61133433,824982044.000,4400,13.190,10200,13.180,13980,13.170,1700,13.160,9200,13.150,44030,13.200,92400,13.210,4100,13.220,26780,13.230,3260,13.240,2020-04-30,15:00:00,00,";
         r = self._session.get(self.stock_api + params, headers=headers)
+        #print('r stock_api {} params {} {}'.format(self.stock_api,params,r.text))
         return r.text
 
     def get_stock_data(self, stock_list, **kwargs):
